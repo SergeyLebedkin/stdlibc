@@ -13,4 +13,4 @@
 #define xor ^
 #define xor_eq ^=
 
-#endif ISO646_H
+#endif // ISO646_H
