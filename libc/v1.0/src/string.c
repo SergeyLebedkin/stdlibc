@@ -1,14 +1,16 @@
 #include <string.h>
-
-// locate character in block of memory
-const void *memchr(const void *ptr, int value, size_t num)
-{
-    return NULL;
-}
+#include <stdint.h>
 
 // locate character in block of memory
 void *memchr(void *ptr, int value, size_t num)
 {
+    // find character
+    unsigned char cvalue = (unsigned char)value;
+    unsigned char *cptr = (unsigned char *)ptr;
+    for (size_t i = 0; i < num; i++, cptr++)
+        if ((*cptr) == cvalue)
+            return cptr;
+    // return NULL
     return NULL;
 }
 
@@ -19,31 +21,51 @@ int memcmp(const void *ptr1, const void *ptr2, size_t num)
 }
 
 // copy block of memory
-void *memcpy(void *destination, const void *source, size_t num)
+void *memcpy(void *dst, const void *src, size_t num)
 {
-    return NULL;
+    // copy by 4/8 bytes
+    unsigned long *wdst = (unsigned long *)dst;
+    unsigned long *wsrc = (unsigned long *)src;
+    for (size_t i = 0, m = num / sizeof(long); i < m; i++)
+        *(wdst++) = *(wsrc++);
+    // copy by 1 byte
+    unsigned char *cdst = (unsigned char *)wdst;
+    unsigned char *csrc = (unsigned char *)wsrc;
+    for (size_t i = 0, m = num % sizeof(long); i < m; i++)
+        *(cdst++) = *(csrc++);
+    // return dst
+    return dst;
 }
 
 // move block of memory
-void *memmove(void *destination, const void *source, size_t num)
+void *memmove(void *dst, const void *src, size_t num)
 {
-    return NULL;
+    // copy buffer
+    if ((uintptr_t)dst < (uintptr_t)src)
+        return memcpy(dst, src, num);
+    // copy by 1 byte
+    unsigned char *cdst = (unsigned char *)dst + num;
+    unsigned char *csrc = (unsigned char *)src + num;
+    for (size_t i = 0; i < num; i++)
+        *(cdst--) = *(csrc--);
+    // return dst
+    return dst;
 }
 
 // fill block of memory
 void *memset(void *ptr, int value, size_t num)
 {
-    return NULL;
+    // copy by 1 byte
+    unsigned char cvalue = (unsigned char)value;
+    unsigned char *cptr = (unsigned char *)ptr;
+    for (size_t i = 0; i < num; i++)
+        *(cptr++) = cvalue;
+    // return dst
+    return ptr;
 }
 
 // concatenate strings
-char *strcat(char *destination, const char *source)
-{
-    return NULL;
-}
-
-// locate first occurrence of character in string
-const char *strchr(const char *str, int character)
+char *strcat(char *dst, const char *src)
 {
     return NULL;
 }
@@ -67,7 +89,7 @@ int strcoll(const char *str1, const char *str2)
 }
 
 // copy string
-char *strcpy(char *destination, const char *source)
+char *strcpy(char *dst, const char *src)
 {
     return NULL;
 }
@@ -87,11 +109,14 @@ char *strerror(int errnum)
 // get string length
 size_t strlen(const char *str)
 {
-    return 0;
+    size_t len = 0;
+    while (*(str++))
+        len++;
+    return len;
 }
 
 // append characters from string
-char *strncat(char *destination, const char *source, size_t num)
+char *strncat(char *dst, const char *src, size_t num)
 {
     return NULL;
 }
@@ -103,25 +128,13 @@ int strncmp(const char *str1, const char *str2, size_t num)
 }
 
 // copy characters from string
-char *strncpy(char *destination, const char *source, size_t num)
-{
-    return NULL;
-}
-
-// locate characters in string
-const char *strpbrk(const char *str1, const char *str2)
+char *strncpy(char *dst, const char *src, size_t num)
 {
     return NULL;
 }
 
 // locate characters in string
 char *strpbrk(char *str1, const char *str2)
-{
-    return NULL;
-}
-
-// locate last occurrence of character in string
-const char *strrchr(const char *str, int character)
 {
     return NULL;
 }
@@ -139,12 +152,6 @@ size_t strspn(const char *str1, const char *str2)
 }
 
 // locate substring
-const char *strstr(const char *str1, const char *str2)
-{
-    return NULL;
-}
-
-// locate substring
 char *strstr(char *str1, const char *str2)
 {
     return NULL;
@@ -157,7 +164,7 @@ char *strtok(char *str, const char *delimiters)
 }
 
 // split string into tokens
-size_t strxfrm(char *destination, const char *source, size_t num)
+size_t strxfrm(char *dst, const char *src, size_t num)
 {
     return 0;
 }
