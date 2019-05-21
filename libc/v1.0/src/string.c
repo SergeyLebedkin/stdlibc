@@ -2,7 +2,7 @@
 #include <stdint.h>
 
 // locate character in block of memory
-void *memchr(void *ptr, int value, size_t num)
+void *memchr(const void *ptr, int value, size_t num)
 {
     // find character
     unsigned char cvalue = (unsigned char)value;
@@ -17,6 +17,13 @@ void *memchr(void *ptr, int value, size_t num)
 // compare two blocks of memory
 int memcmp(const void *ptr1, const void *ptr2, size_t num)
 {
+    // find character
+    unsigned char *cptr1 = (unsigned char *)ptr1;
+    unsigned char *cptr2 = (unsigned char *)ptr2;
+    for (size_t i = 0; i < num; i++)
+        if (cptr1[i] != cptr2[i])
+            return cptr1[i] - cptr2[i];
+    // return NULL
     return 0;
 }
 
@@ -55,7 +62,7 @@ void *memmove(void *dst, const void *src, size_t num)
 // fill block of memory
 void *memset(void *ptr, int value, size_t num)
 {
-    // copy by 1 byte
+    // fill by 1 byte
     unsigned char cvalue = (unsigned char)value;
     unsigned char *cptr = (unsigned char *)ptr;
     for (size_t i = 0; i < num; i++)
@@ -67,13 +74,18 @@ void *memset(void *ptr, int value, size_t num)
 // concatenate strings
 char *strcat(char *dst, const char *src)
 {
-    return NULL;
+    char *ret = dst;
+    while (*dst)
+        dst++;
+    while ((*dst++ = *src++))
+        dst++, src++;
+    return ret;
 }
 
 // locate first occurrence of character in string
-char *strchr(char *str, int character)
+char *strchr(const char *str, int character)
 {
-    return NULL;
+    return (char *)str;
 }
 
 // compare two strings
@@ -91,7 +103,10 @@ int strcoll(const char *str1, const char *str2)
 // copy string
 char *strcpy(char *dst, const char *src)
 {
-    return NULL;
+    char *ret = dst;
+    while ((*dst = *src))
+        dst++, src++;
+    return ret;
 }
 
 // get span until character in string
@@ -134,13 +149,13 @@ char *strncpy(char *dst, const char *src, size_t num)
 }
 
 // locate characters in string
-char *strpbrk(char *str1, const char *str2)
+char *strpbrk(const char *str1, const char *str2)
 {
     return NULL;
 }
 
 // locate last occurrence of character in string
-char *strrchr(char *str, int character)
+char *strrchr(const char *str, int character)
 {
     return NULL;
 }
@@ -152,7 +167,7 @@ size_t strspn(const char *str1, const char *str2)
 }
 
 // locate substring
-char *strstr(char *str1, const char *str2)
+char *strstr(const char *str1, const char *str2)
 {
     return NULL;
 }

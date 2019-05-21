@@ -5,10 +5,10 @@
 #define NULL ((void *)0)
 
 // size_t
-typedef long long size_t;
+typedef unsigned long long size_t;
 
 // locate character in block of memory
-void *memchr(void *ptr, int value, size_t num);
+void *memchr(const void *ptr, int value, size_t num);
 // compare two blocks of memory
 int memcmp(const void *ptr1, const void *ptr2, size_t num);
 // copy block of memory
@@ -20,7 +20,7 @@ void *memset(void *ptr, int value, size_t num);
 // concatenate strings
 char *strcat(char *dst, const char *src);
 // locate first occurrence of character in string
-char *strchr(char *str, int character);
+char *strchr(const char *str, int character);
 // compare two strings
 int strcmp(const char *str1, const char *str2);
 // compare two strings using locale
@@ -40,13 +40,13 @@ int strncmp(const char *str1, const char *str2, size_t num);
 // copy characters from string
 char *strncpy(char *dst, const char *src, size_t num);
 // locate characters in string
-char *strpbrk(char *str1, const char *str2);
+char *strpbrk(const char *str1, const char *str2);
 // locate last occurrence of character in string
-char *strrchr(char *str, int character);
+char *strrchr(const char *str, int character);
 // get span of character set in string
 size_t strspn(const char *str1, const char *str2);
 // locate substring
-char *strstr(char *str1, const char *str2);
+char *strstr(const char *str1, const char *str2);
 // split string into tokens
 char *strtok(char *str, const char *delimiters);
 // split string into tokens
