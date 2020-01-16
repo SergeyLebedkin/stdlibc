@@ -24,15 +24,15 @@
 extern int math_errhandling;
 
 // Infinity
-#define INFINITY   ((float)(1e+300 * 1e+300))
+#define INFINITY ((float)(1e+300 * 1e+300))
 // Huge value (double)
-#define HUGE_VAL   ((double)INFINITY)
+#define HUGE_VAL ((double)INFINITY)
 // Huge value (float)
-#define HUGE_VALF  ((float)INFINITY)
+#define HUGE_VALF ((float)INFINITY)
 // Huge value (long double)
-#define HUGE_VALL  ((long double)INFINITY)
+#define HUGE_VALL ((long double)INFINITY)
 // Not-A-Number
-#define NAN        ((float)(INFINITY * 0.0F))
+#define NAN ((float)(INFINITY * 0.0F))
 
 // Trigonometric functions (double)
 double cos(double x); // Compute cosine
