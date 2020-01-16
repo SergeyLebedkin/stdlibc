@@ -240,7 +240,7 @@ long long int llrintl(long double x);
 int fpclassify(double x);
 int fpclassifyf(float x);
 int fpclassifyl(long double x);
-// Is finite value(macro)
+// Is finite value (macro)
 int isfinite(double x);
 int isfinitef(float x);
 int isfinitel(long double x);
@@ -262,27 +262,27 @@ int signbitf(float x);
 int signbitl(long double x);
 
 // Comparison macro / functions (all)
-// Is greater(macro)
+// Is greater (macro)
 int isgreater(double x, double y);
 int isgreaterf(float x, float y);
 int isgreaterl(long double x, long double y);
-// Is greater or equal(macro)
+// Is greater or equal (macro)
 int isgreaterequal(double x,double y);
 int isgreaterequalf(float x, float y);
 int isgreaterequall(long double x, long double y);
-// Is less(macro)
+// Is less (macro)
 int isless(double x,double y);
 int islessf(float x, float y);
 int islessl(long double x, long double y);
-// Is less or equal(macro)
+// Is less or equal (macro)
 int islessequal(double x,double y);
 int islessequalf(float x, float y);
 int islessequall(long double x, long double y);
-// Is less or greater(macro)
+// Is less or greater (macro)
 int islessgreater(double x,double y);
 int islessgreaterf(float x, float y);
 int islessgreaterl(long double x, long double y);
-// Is unordered(macro)
+// Is unordered (macro)
 int isunordered(double x,double y);
 int isunorderedf(float x, float y);
 int isunorderedl(long double x, long double y);
