@@ -1,6 +1,39 @@
 #ifndef MATH_H
 #define MATH_H
 
+// Sub-normal value (underflow)
+#define FP_SUBNORMAL (-2)
+// Normal value (none of the above)
+#define FP_NORMAL (-1)
+// Positive or negative infinity (overflow)
+#define FP_INFINITE 1
+// Not-A-Number
+#define FP_NAN 2
+// Value of zero
+#define FP_ZERO 0
+
+// On domain error: errno is set to EDOM.
+// On range error (including pole error, overflow, and possibly underflow): errno is set to ERANGE.
+#define MATH_ERRNO 1
+// On domain error: FE_INVALID is raised.
+// On pole error: FE_DIVBYZERO is raised.
+// On overflow: FE_OVERFLOW is raised.
+// On underflow: FE_UNDERFLOW may be raised.
+#define MATH_ERREXCEPT 2
+// Error handling
+extern int math_errhandling;
+
+// Infinity
+#define INFINITY   ((float)(1e+300 * 1e+300))
+// Huge value (double)
+#define HUGE_VAL   ((double)INFINITY)
+// Huge value (float)
+#define HUGE_VALF  ((float)INFINITY)
+// Huge value (long double)
+#define HUGE_VALL  ((long double)INFINITY)
+// Not-A-Number
+#define NAN        ((float)(INFINITY * 0.0F))
+
 // Trigonometric functions (double)
 double cos(double x); // Compute cosine
 double sin(double x); // Compute sine
