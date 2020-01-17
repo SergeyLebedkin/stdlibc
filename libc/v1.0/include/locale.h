@@ -5,11 +5,11 @@
 struct lconv {
     char* decimal_point;     // Decimal-point separator used for non-monetary quantities.
     char* thousands_sep;     // Separators used to delimit groups of digits to the left of the decimal point for non-monetary quantities.
-    char* grouping;          // Specifies the amount of digits that form each of the groups to be separated by thousands_sep separator for non-monetary quantities. This is a zero-terminated sequence of char values that may contain different grouping sizes for each successive group starting from the right, each number indicating the amount of digits for the group; the last number before the ending zero in this string is used for the remaining groups. For example, assuming thousand_sep is set to "," and the number to represent is one million (1000000):
+                             // Specifies the amount of digits that form each of the groups to be separated by thousands_sep separator for non-monetary quantities. This is a zero-terminated sequence of char values that may contain different grouping sizes for each successive group starting from the right, each number indicating the amount of digits for the group; the last number before the ending zero in this string is used for the remaining groups. For example, assuming thousand_sep is set to "," and the number to represent is one million (1000000):
                              // with grouping set to "\3", the number would be represented as: 1,000,000
                              // with grouping set to "\1\2\3", the number would be represented as: 1,000,00,0
                              // with grouping set to "\3\1", the number would be represented as: 1,0,0,0,000
-                             // CHAR_MAX indicates that no further grouping is to be performed.
+    char* grouping;          // CHAR_MAX indicates that no further grouping is to be performed.
     char* int_curr_symbol;   // International currency symbol. This is formed by the three-letter ISO-4217 entry code for the currency, like "USD" for U.S.-Dollar or "GBP" for Pound Sterling, followed by the character used to separate this symbol from the monetary quantity
     char* currency_symbol;   // Local currency symbol, like "$".
     char* mon_decimal_point; // Decimal-point separator used for monetary quantities.
@@ -22,13 +22,13 @@ struct lconv {
     char n_cs_precedes;      // Whether the currency symbol should precede negative monetary quantities. If this value is 1, the currency symbol should precede; if it is 0 it should follow.
     char p_sep_by_space;     // Whether a space should appear between the currency symbol and nonnegative (positive or zero) monetary quantities. If this value is 1, a space should appear; if it is 0 it should not.
     char n_sep_by_space;     // Whether a space should appear between the currency symbol and negative monetary quantities. If this value is 1, a space should appear; if it is 0 it should not.
-    char p_sign_posn;        // Position of the sign for nonnegative (positive or zero) monetary quantities:
+                             // Position of the sign for nonnegative (positive or zero) monetary quantities:
                              // 0 : Currency symbol and quantity surrounded by parentheses.
                              // 1 : Sign before the quantity and currency symbol.
                              // 2 : Sign after the quantity and currency symbol.
                              // 3 : Sign right before currency symbol.
                              // 4 : Sign right after currency symbol.
-                             // CHAR_MAX : Unspecified.
+    char p_sign_posn;        // CHAR_MAX : Unspecified.
     char n_sign_posn;        // Position of the sign for negative monetary quantities. See p_sign_posn above.
     char int_frac_digits;    // Same as frac_digits, but for the international format (instead of the local format).
     char int_p_cs_precedes;  // Same as p_cs_precedes, but for the international format.
