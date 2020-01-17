@@ -33,13 +33,13 @@ int fegetexceptflag(fexcept_t* flagp, int excepts); // Get floating-point except
 int fesetexceptflag(const fexcept_t* flagp, int excepts); // Set floating-point exception flags (function)
 
 // Rounding direction
-int fegetround(void); // Get rounding direction mode (function)
+int fegetround(void);     // Get rounding direction mode (function)
 int fesetround(int rdir); // Set rounding direction mode (function)
 
 // Entire environment
-int fegetenv(fenv_t* envp); // Get floating-point environment (function)
-int fesetenv(const fenv_t* envp); // Set floating-point environment (function)
-int feholdexcept(fenv_t* envp); // Hold floating-point exceptions (function)
+int fegetenv(fenv_t* envp);          // Get floating-point environment (function)
+int fesetenv(const fenv_t* envp);    // Set floating-point environment (function)
+int feholdexcept(fenv_t* envp);      // Hold floating-point exceptions (function)
 int feupdateenv(const fenv_t* envp); // Update floating-point environment (function)
 
 // Other
