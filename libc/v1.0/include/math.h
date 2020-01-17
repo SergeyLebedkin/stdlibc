@@ -1,16 +1,12 @@
 #ifndef MATH_H
 #define MATH_H
 
-// Sub-normal value (underflow)
-#define FP_SUBNORMAL (-2)
-// Normal value (none of the above)
-#define FP_NORMAL (-1)
-// Positive or negative infinity (overflow)
-#define FP_INFINITE 1
-// Not-A-Number
-#define FP_NAN 2
-// Value of zero
-#define FP_ZERO 0
+// Classify floating-point value
+#define FP_SUBNORMAL (-2) // Sub-normal value (underflow)
+#define FP_NORMAL    (-1) // Normal value (none of the above)
+#define FP_ZERO      0 // Value of zero
+#define FP_INFINITE  1 // Positive or negative infinity (overflow)
+#define FP_NAN       2 // Not-A-Number
 
 // On domain error: errno is set to EDOM.
 // On range error (including pole error, overflow, and possibly underflow): errno is set to ERANGE.
@@ -23,16 +19,12 @@
 // Error handling
 extern int math_errhandling;
 
-// Infinity
-#define INFINITY ((float)(1e+300 * 1e+300))
-// Huge value (double)
-#define HUGE_VAL ((double)INFINITY)
-// Huge value (float)
-#define HUGE_VALF ((float)INFINITY)
-// Huge value (long double)
-#define HUGE_VALL ((long double)INFINITY)
-// Not-A-Number
-#define NAN ((float)(INFINITY * 0.0F))
+
+#define INFINITY  ((float)(1e+300 * 1e+300)) // Infinity
+#define HUGE_VAL  ((double)INFINITY) // Huge value (double)
+#define HUGE_VALF ((float)INFINITY) // Huge value (float)
+#define HUGE_VALL ((long double)INFINITY) // Huge value (long double)
+#define NAN       ((float)(INFINITY * 0.0F)) // Not-A-Number
 
 // Trigonometric functions (double)
 double cos(double x); // Compute cosine
