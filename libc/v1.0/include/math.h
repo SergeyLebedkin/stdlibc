@@ -1,6 +1,13 @@
 #ifndef MATH_H
 #define MATH_H
 
+// Floating-point type
+typedef float float_t ; // float_t
+typedef double double_t; // double_t
+
+// Extern math error handling
+extern int math_errhandling; // Error handling
+
 // Classify floating-point value
 #define FP_SUBNORMAL (-2) // Sub-normal value (underflow)
 #define FP_NORMAL    (-1) // Normal value (none of the above)
@@ -16,10 +23,12 @@
 // On overflow: FE_OVERFLOW is raised.
 // On underflow: FE_UNDERFLOW may be raised.
 #define MATH_ERREXCEPT 2
-// Error handling
-extern int math_errhandling;
 
+// Special values the ilogb function may return
+#define FP_ILOGB0   0x80000000 // x is zero
+#define FP_ILOGBNAN 0x7fffffff // x is NaN
 
+// The possible values returned by fpclassify.
 #define INFINITY  ((float)(1e+300 * 1e+300)) // Infinity
 #define HUGE_VAL  ((double)INFINITY) // Huge value (double)
 #define HUGE_VALF ((float)INFINITY) // Huge value (float)

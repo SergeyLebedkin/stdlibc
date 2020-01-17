@@ -1,12 +1,12 @@
 #ifndef ERRNO_H
 #define ERRNO_H
 
-// error codes
-#define EDOM   1
-#define EILSEQ 2
-#define ERANGE 3
+// Last error number
+#define EDOM   0x00000001 // Domain error
+#define EILSEQ 0x00000002 // Illegal sequence
+#define ERANGE 0x00000003 // Range error
 
-// errno
-extern int errno;
+// extern errno
+extern int errno; // Last error number
 
 #endif // ERRNO_H

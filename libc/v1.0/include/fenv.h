@@ -6,12 +6,15 @@ typedef unsigned long fexcept_t;
 // Floating-point environment type
 typedef unsigned long fenv_t;
 
+// extern default environment
+extern const fenv_t fe_def_env;
+
 // Floating-point exceptions
-#define FE_DIVBYZERO 0x00000001 // Pole error exception (macro)
-#define FE_INEXACT   0x00000002 // Inexact result exception (macro)
-#define FE_INVALID   0x00000004 // Invalid argument exception (macro)
-#define FE_OVERFLOW  0x00000008 // Overflow range error exception (macro)
-#define FE_UNDERFLOW 0x00000010 // Underflow range error exception (macro)
+#define FE_DIVBYZERO  0x00000001 // Pole error exception (macro)
+#define FE_INEXACT    0x00000002 // Inexact result exception (macro)
+#define FE_INVALID    0x00000004 // Invalid argument exception (macro)
+#define FE_OVERFLOW   0x00000008 // Overflow range error exception (macro)
+#define FE_UNDERFLOW  0x00000010 // Underflow range error exception (macro)
 #define FE_ALL_EXCEPT (FE_DIVBYZERO | FE_INEXACT | FE_INVALID | FE_OVERFLOW | FE_UNDERFLOW) // All exceptions (macro)
 
 // Rounding directions
@@ -21,8 +24,7 @@ typedef unsigned long fenv_t;
 #define FE_UPWARD     0x00000004 // Upward rounding direction mode (macro)
 
 // Default environment
-extern const fenv_t fe_def_env = FE_TONEAREST;
-#define FE_DFL_ENV (&fe_def_env)
+#define FE_DFL_ENV (&fe_def_env) // Default environment (macro)
 
 // Floating-point exceptions
 int feclearexcept(int excepts); // Clear floating-point exceptions (function)
