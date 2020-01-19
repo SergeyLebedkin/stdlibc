@@ -7,7 +7,7 @@ CFLAGS_TEST=-nostdlib -nostdinc -ffreestanding -fno-exceptions -g
 LDFLAGS=-nostdlib -nostdinc -ffreestanding -fno-exceptions
 
 # directories
-OBJ_DIR=./obj
+OBJ_DIR=./obj/libc
 INC_DIR=./libc/v1.0/include
 SRC_DIR=./libc/v1.0/src
 TST_DIR=./test
