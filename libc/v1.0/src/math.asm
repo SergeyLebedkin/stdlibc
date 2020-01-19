@@ -1,7 +1,7 @@
     .text
     .intel_syntax noprefix
 
-    .global sin_asm
+    .global sinf
 sinf:
     # store rbp
     push    rbp
@@ -52,6 +52,7 @@ M_ONE_ONE_ONE_ONE:
     .float +1.0000000000000000000000000e-00 # 1.00
     .float +1.0000000000000000000000000e-00 # 1.00
     .float +1.0000000000000000000000000e-00 # 1.00
+# MUST be alligned by 16 bytes for using in SSE
 M_SIN_15_13_11_09:
     .float -7.6471637318198164759011319e-13 # 1/fact(15)
     .float +1.6059043836821614599392377e-10 # 1/fact(13)

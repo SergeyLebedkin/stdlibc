@@ -3,19 +3,25 @@ LD=ld
 CC=gcc
 AS=as
 CFLAGS=-nostdlib -nostdinc -ffreestanding -fno-exceptions -S -masm=intel
+CFLAGS_TEST=-nostdlib -nostdinc -ffreestanding -fno-exceptions -g
 LDFLAGS=-nostdlib -nostdinc -ffreestanding -fno-exceptions
 
 # directories
 OBJ_DIR=./obj
 INC_DIR=./libc/v1.0/include
 SRC_DIR=./libc/v1.0/src
+TST_DIR=./test
 
 # all target
 all: compile
 	echo "All done!"
 
+compile: compile_libc
+	$(CC) $(CFLAGS_TEST) -I $(INC_DIR) -c $(TST_DIR)/test.c -o $(OBJ_DIR)/test.o
+	$(CC) $(CFLAGS_TEST) -I $(INC_DIR) $(OBJ_DIR)/test.o $(OBJ_DIR)/math.o -o test.exe
+
 # compile target
-compile: $(OBJ_DIR)
+compile_libc: $(OBJ_DIR)
 	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/assert.c   -o $(OBJ_DIR)/assert.S
 	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/ctype.c    -o $(OBJ_DIR)/ctype.S
 	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/errno.c    -o $(OBJ_DIR)/errno.S
