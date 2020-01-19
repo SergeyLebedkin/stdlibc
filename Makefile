@@ -1,8 +1,9 @@
 # compiler options
 LD=ld
 CC=gcc
-CFLAGS=-nostdlib -nostdinc -fno-exceptions -S -masm=intel
-LDFLAGS=-nostdlib
+AS=as
+CFLAGS=-nostdlib -nostdinc -ffreestanding -fno-exceptions -S -masm=intel
+LDFLAGS=-nostdlib -nostdinc -ffreestanding -fno-exceptions
 
 # directories
 OBJ_DIR=./obj
@@ -24,7 +25,7 @@ compile: $(OBJ_DIR)
 	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/iso646.c   -o $(OBJ_DIR)/iso646.S
 	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/limits.c   -o $(OBJ_DIR)/limits.S
 	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/locale.c   -o $(OBJ_DIR)/locale.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/math.c     -o $(OBJ_DIR)/math.S
+	$(AS) -c $(SRC_DIR)/math.asm -o $(OBJ_DIR)/math.o
 	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/setjmp.c   -o $(OBJ_DIR)/setjmp.S
 	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/signal.c   -o $(OBJ_DIR)/signal.S
 	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/stdarg.c   -o $(OBJ_DIR)/stdarg.S
