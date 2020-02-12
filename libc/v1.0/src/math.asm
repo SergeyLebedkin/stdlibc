@@ -45,6 +45,42 @@ sinf:
     pop     rbp
     ret
 
+    ; store registers (prologue)
+    push    rbp
+    mov     rbp, rsp
+    mov     rbx, [rbp-8]
+    mov     r12, [rbp-16]
+    mov     r13, [rbp-24]
+    mov     r14, [rbp-32]
+    mov     r15, [rbp-40]
+    sub     rsp, 48
+
+    ; restore registers (epilogue)
+    add     rsp, 48
+    mov     r15, [rbp-40]
+    mov     r14, [rbp-32]
+    mov     r13, [rbp-24]
+    mov     r12, [rbp-16]
+    mov     rbx, [rbp-8]
+    pop     rbp
+    ret
+
+    ; before "for" preparation
+    mov     rbx, 10
+    xor     rax, rax
+    ; init "for" section
+    xor     r12, r12
+    jmp     for_cond
+for_body:
+    ; body "for" section
+    add     rax, 2
+    ; iterate "for" section
+    inc     r12
+for_cond:
+    ; condition "for" section
+    cmp     r12, rbx
+    jl      for_body
+
     .data
 # MUST be alligned by 16 bytes for using in SSE
 M_ONE_ONE_ONE_ONE:

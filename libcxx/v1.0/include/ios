@@ -1,0 +1,8 @@
+#ifndef IOS
+#define IOS
+
+class ios_base {
+    
+}
+
+#endif // IOS

@@ -1,58 +1,61 @@
 # compiler options
-LD=ld
-CC=gcc
-AS=as
-CFLAGS=-nostdlib -nostdinc -ffreestanding -fno-exceptions -S -masm=intel
-CFLAGS_TEST=-nostdlib -nostdinc -ffreestanding -fno-exceptions -g
-LDFLAGS=-nostdlib -nostdinc -ffreestanding -fno-exceptions
+CC  = gcc
+AS  = as
+CPP = g++
+LD  = ld
+
+# compiler flags
+CFLAGS     = -g -nostdlib -nostdinc -ffreestanding -Wall -Wextra -fno-exceptions
+CINCLUDE   = -I ./libc/v1.0/include
+ASFLAGS    = 
+ASINCLUDE  =
+CPPFLAGS   = -g -nostdlib -nostdinc -ffreestanding -Wall -Wextra -fno-exceptions
+CPPINCLUDE = -I ./libc/v1.0/include -I ./libcxx/v1.0/include
+LDFLAGS    = 
 
 # directories
-OBJ_DIR=./obj/libc
-INC_DIR=./libc/v1.0/include
-SRC_DIR=./libc/v1.0/src
-TST_DIR=./test
+OBJ_DIR_TEST   = ./obj/test
+OBJ_DIR_LIBC   = ./obj/libc/v1.0
+OBJ_DIR_LIBCXX = ./obj/libcxx/v1.0
+SRC_DIR_TEST   = ./test
+SRC_DIR_LIBC   = ./libc/v1.0/src
+SRC_DIR_LIBCXX = ./libcxx/v1.0/include
 
-# all target
-all: compile
-	echo "All done!"
+# do all
+all: link
+	echo "Done!"
 
-compile: compile_libc
-	$(CC) $(CFLAGS_TEST) -I $(INC_DIR) -c $(TST_DIR)/test.c -o $(OBJ_DIR)/test.o
-	$(CC) $(CFLAGS_TEST) -I $(INC_DIR) $(OBJ_DIR)/test.o $(OBJ_DIR)/math.o -o test.exe
+# link all
+link: compile
+	${LD} ${LDFLAGS}            \
+		${OBJ_DIR_TEST}/entry.o \
+		${OBJ_DIR_TEST}/start.o  \
+		-o ./test.exe
 
-# compile target
-compile_libc: $(OBJ_DIR)
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/assert.c   -o $(OBJ_DIR)/assert.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/ctype.c    -o $(OBJ_DIR)/ctype.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/errno.c    -o $(OBJ_DIR)/errno.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/fenv.c     -o $(OBJ_DIR)/fenv.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/float.c    -o $(OBJ_DIR)/float.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/inttypes.c -o $(OBJ_DIR)/inttypes.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/iso646.c   -o $(OBJ_DIR)/iso646.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/limits.c   -o $(OBJ_DIR)/limits.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/locale.c   -o $(OBJ_DIR)/locale.S
-	$(AS) -c $(SRC_DIR)/math.asm -o $(OBJ_DIR)/math.o
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/setjmp.c   -o $(OBJ_DIR)/setjmp.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/signal.c   -o $(OBJ_DIR)/signal.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/stdarg.c   -o $(OBJ_DIR)/stdarg.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/stdbool.c  -o $(OBJ_DIR)/stdbool.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/stddef.c   -o $(OBJ_DIR)/stddef.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/stdint.c   -o $(OBJ_DIR)/stdint.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/stdio.c    -o $(OBJ_DIR)/stdio.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/stdlib.c   -o $(OBJ_DIR)/stdlib.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/string.c   -o $(OBJ_DIR)/string.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/tgmath.c   -o $(OBJ_DIR)/tgmath.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/time.c     -o $(OBJ_DIR)/time.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/uchar.c    -o $(OBJ_DIR)/uchar.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/wchar.c    -o $(OBJ_DIR)/wchar.S
-	$(CC) $(CFLAGS) -I $(INC_DIR) $(SRC_DIR)/wctype.c   -o $(OBJ_DIR)/wctype.S
+# compile all
+compile: compile_libc compile_libcxx compile_test
+	echo "Compiled!"
 
-# create folder
-$(OBJ_DIR): clean
-	mkdir -p $(OBJ_DIR)
+# compile test app
+compile_test: prepare
+	${CPP} ${CPPFLAGS} ${CPPINCLUDE} -c ${SRC_DIR_TEST}/start.cpp -o ${OBJ_DIR_TEST}/start.o
+	${CPP} ${CPPFLAGS} ${CPPINCLUDE} -c ${SRC_DIR_TEST}/entry.cpp -o ${OBJ_DIR_TEST}/entry.o
 
-# clean target
+# compile lib c++
+compile_libcxx: prepare
+	# ${CPP} ${CPPFLAGS} ${CPPINCLUDE} -c ${SRC_DIR_LIBCXX}/entry.cpp -o ${OBJ_DIR_LIBCXX}/entry.o
+
+# compile lib c
+compile_libc: prepare
+
+# prepare
+prepare: clean
+	mkdir -p $(OBJ_DIR_TEST)
+	mkdir -p $(OBJ_DIR_LIBC)
+	mkdir -p $(OBJ_DIR_LIBCXX)
+
+# clean
 clean:
-	@echo "\e[92mClean up...\e[39m"
-	rm -rf $(BIN_DIR)
-	rm -rf $(OBJ_DIR)
+	rm -rf ./*.exe
+	rm -rf ./bin
+	rm -rf ./obj
