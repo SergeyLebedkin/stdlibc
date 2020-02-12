@@ -1,8 +1,69 @@
 #ifndef IOS
 #define IOS
 
-class ios_base {
-    
-}
+// Base class for streams
+namespace std {
+class ios_base
+{
+public:
+    // Member types
+    // Type to indicate event type
+    enum event
+    {
+        erase_event,
+        imbue_event,
+        copyfmt_event
+    };
+    // Event callback function type
+    typedef void (*event_callback)(event ev, ios_base &obj, int index);
+    // Type for stream format flags
+    typedef int fmtflags;
+    // Type for stream opening mode flags
+    typedef int openmode;
+    // Type for stream seeking direction flag
+    typedef int seekdir;
+
+    // Construct object
+    ios_base(const ios_base &) = delete;
+    ios_base &operator=(const ios_base &) = delete;
+    // Destruct object
+    virtual ~ios_base(){};
+
+    // Formatting
+    // Get/set format flags
+    fmtflags flags() const {};
+    fmtflags flags(fmtflags fmtfl){};
+    // Set specific format flags
+    fmtflags setf(fmtflags fmtfl){};
+    fmtflags setf(fmtflags fmtfl, fmtflags mask){};
+    // Clear specific format flags
+    void unsetf(fmtflags mask){};
+    // Get/Set floating-point decimal precision
+    streamsize precision() const {};
+    streamsize precision(streamsize prec){};
+    // Get/set field width
+    streamsize width() const {};
+    streamsize width(streamsize wide){};
+
+    // Locales
+    // Imbue locale
+    locale imbue(const locale &loc){};
+    // Get current locale
+    locale getloc() const {};
+
+    // Internal extensible array
+    // Get new index for extensible array [static]
+    static int xalloc(){};
+    // Get integer element of extensible array
+    long &iword(int idx){};
+    // Get pointer element of extensible array
+    void *&pword(int idx){};
+
+    // Others
+    // Register event callback function
+    void register_callback(event_callback fn, int index){};
+    // Toggle synchronization with cstdio streams [static]
+    static bool sync_with_stdio(bool sync = true){};
+}} // namespace std
 
 #endif // IOS
