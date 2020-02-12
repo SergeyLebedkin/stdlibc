@@ -1,7 +1,9 @@
 {
     "files.associations": {
+        "cstddef": "cpp",
         "ios": "cpp",
         "iosfwd": "cpp",
+        "locale": "cpp",
         "xiosbase": "cpp",
         "xlocale": "cpp",
         "streambuf": "cpp"

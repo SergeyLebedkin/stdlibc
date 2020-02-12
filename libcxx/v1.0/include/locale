@@ -1,0 +1,39 @@
+#ifndef LOCALE
+#define LOCALE
+
+#include <cstddef>
+
+namespace std
+{
+// Locale class
+class locale
+{
+public:
+    // Locale category
+    typedef int category;
+
+    // Locale facet
+    class facet
+    {
+    protected:
+        size_t m_refs;
+    protected:
+        explicit facet(size_t refs = 0): m_refs(refs) {};
+        virtual ~facet(){};
+        facet(const facet &) = delete;
+        void operator=(const facet &) = delete;
+    };
+
+    // Locale facet id
+    class id
+    {
+    public:
+        id(){};
+        void operator=(const id &) = delete;
+        id(const id &) = delete;
+    };
+};
+
+} // namespace std
+
+#endif // LOCALE

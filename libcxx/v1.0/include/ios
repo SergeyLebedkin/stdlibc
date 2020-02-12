@@ -1,8 +1,14 @@
 #ifndef IOS
 #define IOS
 
+#include <locale>
+
+namespace std
+{
+// Stream size type
+typedef long long streamsize;
+
 // Base class for streams
-namespace std {
 class ios_base
 {
 public:
@@ -18,11 +24,30 @@ public:
     typedef void (*event_callback)(event ev, ios_base &obj, int index);
     // Type for stream format flags
     typedef int fmtflags;
+    // Type for stream state flags (public member type )
+    typedef int iostate;
     // Type for stream opening mode flags
     typedef int openmode;
     // Type for stream seeking direction flag
     typedef int seekdir;
 
+protected:
+    // format flags
+    fmtflags m_flags;
+    // floating-point decimal precision
+    streamsize m_precision;
+    // field width
+    streamsize m_width;
+    // locale
+    locale m_locale;
+    // integer element of extensible array
+    long *m_iwords;
+    // event callbacks
+    event_callback *event_callbacks;
+    // synchronization with cstdio streams
+    static bool m_sync;
+
+public:
     // Construct object
     ios_base(const ios_base &) = delete;
     ios_base &operator=(const ios_base &) = delete;
@@ -31,39 +56,51 @@ public:
 
     // Formatting
     // Get/set format flags
-    fmtflags flags() const {};
-    fmtflags flags(fmtflags fmtfl){};
+    fmtflags flags() const { return m_flags; }
+    fmtflags flags(fmtflags fmtfl) { return m_flags = fmtfl; };
     // Set specific format flags
-    fmtflags setf(fmtflags fmtfl){};
-    fmtflags setf(fmtflags fmtfl, fmtflags mask){};
+    fmtflags setf(fmtflags fmtfl) { return m_flags = fmtfl; };
+    fmtflags setf(fmtflags fmtfl, fmtflags mask) { return m_flags = (fmtfl & mask); };
     // Clear specific format flags
-    void unsetf(fmtflags mask){};
+    void unsetf(fmtflags mask) { m_flags &= mask; };
     // Get/Set floating-point decimal precision
-    streamsize precision() const {};
-    streamsize precision(streamsize prec){};
+    streamsize precision() const { return m_precision; };
+    streamsize precision(streamsize prec) { return m_precision = prec; };
     // Get/set field width
-    streamsize width() const {};
-    streamsize width(streamsize wide){};
+    streamsize width() const { return m_width; };
+    streamsize width(streamsize wide) { return m_width = wide; };
 
     // Locales
     // Imbue locale
-    locale imbue(const locale &loc){};
+    locale imbue(const locale &loc) { return m_locale = loc; };
     // Get current locale
-    locale getloc() const {};
+    locale getloc() const { return m_locale; };
 
     // Internal extensible array
     // Get new index for extensible array [static]
-    static int xalloc(){};
+    static int xalloc() { return 0; };
     // Get integer element of extensible array
-    long &iword(int idx){};
+    long &iword(int idx) { return m_iwords[idx]; };
     // Get pointer element of extensible array
-    void *&pword(int idx){};
+    void *&pword(int idx) { return (void *&)m_iwords[idx]; };
 
     // Others
     // Register event callback function
-    void register_callback(event_callback fn, int index){};
+    void register_callback(event_callback fn, int index) { event_callbacks[index] = fn; };
     // Toggle synchronization with cstdio streams [static]
-    static bool sync_with_stdio(bool sync = true){};
-}} // namespace std
+    static bool sync_with_stdio(bool sync = true) { return m_sync = sync; };
+};
+
+// Stream position class template
+template <class stateT>
+class fpos {
+private:
+    stateT m_state;
+public:
+    stateT state() const { return m_state; }
+    void state(stateT state) { m_state = state; }
+};
+
+} // namespace std
 
 #endif // IOS
