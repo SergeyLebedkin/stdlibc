@@ -12,7 +12,6 @@
         "xlocmon": "cpp",
         "xlocnum": "cpp",
         "xloctime": "cpp",
-        "string": "cpp",
-        "inttypes.h": "c"
+        "string": "cpp"
     }
 }
