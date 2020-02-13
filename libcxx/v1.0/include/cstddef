@@ -4,15 +4,16 @@
 #include <stddef.h>
 
 // namespace std
-namespace std {
-    // Result of pointer subtraction (type)
-    typedef int ptrdiff_t;
-    // Unsigned integral type (type)
-    typedef unsigned long long size_t;
-    // Type with widest scalar alignment (type)
-    typedef double max_align_t;
-    // Null pointer type (C++) (type)
-    typedef decltype(nullptr) nullptr_t;
+namespace std
+{
+// Result of pointer subtraction (type)
+typedef int ptrdiff_t;
+// Unsigned integral type (type)
+typedef unsigned long long size_t;
+// Type with widest scalar alignment (type)
+typedef double max_align_t;
+// Null pointer type (C++) (type)
+typedef decltype(nullptr) nullptr_t;
 } // namespace std
 
 #endif // CSTDDEF

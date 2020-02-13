@@ -12,7 +12,7 @@ class ios_base
 {
 public:
     // Type for stream opening mode flags
-    typedef long long openmode;
+    typedef int openmode;
     // (append) Set the stream's position indicator to the end of the stream before each output operation.
     static constexpr openmode app = 0x00000001;
     // (at end) Set the stream's position indicator to the end of the stream on opening.
@@ -27,7 +27,7 @@ public:
     static constexpr openmode trunc = 0x00000020;
 
     // Specifies available formatting flags
-    typedef long long fmtflags;
+    typedef int fmtflags;
     // use decimal base for integer I/O: see std::dec
     static constexpr fmtflags dec = 0x00000001;
     // use octal base for integer I/O: see std::oct
@@ -66,7 +66,7 @@ public:
     static constexpr fmtflags uppercase = 0x00004000;
 
     // Specifies stream state flags
-    typedef long long iostate;
+    typedef int iostate;
     // no error
     static constexpr iostate goodbit = 0x00000000;
     // 	irrecoverable stream error
@@ -77,7 +77,7 @@ public:
     static constexpr iostate eofbit = 0x00000004;
 
     // Type for stream seeking direction flag
-    typedef long long seekdir;
+    typedef int seekdir;
     // the beginning of a stream
     static constexpr seekdir beg = 0x00000000;
     // the ending of a stream
