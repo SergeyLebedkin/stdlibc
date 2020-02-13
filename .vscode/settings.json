@@ -1,5 +1,7 @@
 {
     "files.associations": {
+        "cfloat": "cpp",
+        "cinttypes": "cpp",
         "cstddef": "cpp",
         "ios": "cpp",
         "locale": "cpp",
@@ -10,6 +12,7 @@
         "xlocmon": "cpp",
         "xlocnum": "cpp",
         "xloctime": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "inttypes.h": "c"
     }
 }

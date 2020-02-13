@@ -1,0 +1,54 @@
+#ifndef CINTTYPES
+#define CINTTYPES
+
+#include <inttypes.h>
+
+// namespace std
+namespace std
+{
+// Integer type with the maximum width supported.
+typedef long long intmax_t;
+typedef unsigned long long uintmax_t;
+
+// Integer type with a width of exactly 8, 16, 32, or 64 bits.
+// For signed types, negative values are represented using 2's complement.
+// No padding bits.
+// Optional: These typedefs are not defined if no types with such characteristics exist.*
+typedef signed char int8_t;
+typedef short int16_t;
+typedef int int32_t;
+typedef long long int64_t;
+typedef unsigned char uint8_t;
+typedef unsigned short uint16_t;
+typedef unsigned int uint32_t;
+typedef unsigned long long uint64_t;
+
+// Integer type with a minimum of 8, 16, 32, or 64 bits.
+// No other integer type exists with lesser size and at least the specified width.
+typedef signed char int_least8_t;
+typedef short int_least16_t;
+typedef int int_least32_t;
+typedef long long int_least64_t;
+typedef unsigned char uint_least8_t;
+typedef unsigned short uint_least16_t;
+typedef unsigned int uint_least32_t;
+typedef unsigned long long uint_least64_t;
+
+// Integer type with a minimum of 8, 16, 32, or 64 bits.
+// At least as fast as any other integer type with at least the specified width.
+typedef signed char int_fast8_t;
+typedef int int_fast16_t;
+typedef int int_fast32_t;
+typedef long long int_fast64_t;
+typedef unsigned char uint_fast8_t;
+typedef unsigned int uint_fast16_t;
+typedef unsigned int uint_fast32_t;
+typedef unsigned long long uint_fast64_t;
+
+// Integer type capable of holding a value converted from a void pointer and then be converted back to that type with a value that compares equal to the original pointer.
+// Optional: These typedefs may not be defined in some library implementations.*
+typedef intmax_t intptr_t;
+typedef uintmax_t uintptr_t;
+} // namespace std
+
+#endif // CINTTYPES

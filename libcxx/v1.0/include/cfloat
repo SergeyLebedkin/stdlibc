@@ -1,0 +1,6 @@
+#ifndef CFLOAT
+#define CFLOAT
+
+#include <float.h>
+
+#endif // CFLOAT
