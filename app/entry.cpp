@@ -2,6 +2,7 @@
 extern int start();
 
 // entry function
-int entry() {
+int entry()
+{
     return start();
 }

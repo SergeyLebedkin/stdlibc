@@ -24,9 +24,9 @@ all: link
 
 # link all
 link: compile
-	${LD} ${LDFLAGS}            \
+	${LD} ${LDFLAGS}           \
 		${OBJ_DIR_APP}/entry.o \
-		${OBJ_DIR_APP}/start.o  \
+		${OBJ_DIR_APP}/start.o \
 		-o ./app.exe
 
 # compile all
