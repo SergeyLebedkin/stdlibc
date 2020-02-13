@@ -35,10 +35,9 @@ protected:
 
 protected:
     // move-assigns from another basic_ostream
-    basic_ostream &operator=(basic_ostream &&rhs) { return *this; };
-
+    basic_ostream &operator=(basic_ostream &&rhs) { return *this; }
     // swaps stream objects, except for the associated buffer
-    void swap(basic_ostream &rhs){};
+    void swap(basic_ostream &rhs) {}
 
 public:
     // inserts formatted data
