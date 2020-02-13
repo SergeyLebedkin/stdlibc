@@ -1,104 +1,71 @@
 #ifndef IOS
 #define IOS
 
-#include <locale>
-
+// std namespace
 namespace std
 {
-// Stream size type
+// stream size
 typedef long long streamsize;
 
 // Base class for streams
 class ios_base
 {
 public:
-    // Member types
-    // Type to indicate event type
-    enum event
-    {
-        erase_event,
-        imbue_event,
-        copyfmt_event
-    };
-    // Event callback function type
-    typedef void (*event_callback)(event ev, ios_base &obj, int index);
-    // Type for stream format flags
-    typedef int fmtflags;
-    // Type for stream state flags (public member type )
-    typedef int iostate;
     // Type for stream opening mode flags
-    typedef int openmode;
+    typedef long long openmode;
+
+    // (append) Set the stream's position indicator to the end of the stream before each output operation.
+    static const openmode app = 0x00000001;
+    // (at end) Set the stream's position indicator to the end of the stream on opening.
+    static const openmode ate = 0x00000002;
+    // (binary) Consider stream as binary rather than text.
+    static const openmode binary = 0x00000004;
+    // (input) Allow input operations on the stream.
+    static const openmode in = 0x00000008;
+    // (output) Allow output operations on the stream.
+    static const openmode out = 0x00000010;
+    // (truncate) Any current content is discarded, assuming a length of zero on opening.
+    static const openmode trunc = 0x00000020;
+
     // Type for stream seeking direction flag
-    typedef int seekdir;
+    enum seekdir
+    {
+        // beginning of sequence.
+        beg,
+        // current position within sequence.
+        cur,
+        // end of sequence.
+        end
+    };
+
+    ios_base(const ios_base &) = delete;
+    // virtual ~ios_base() {}
 
 protected:
-    // format flags
-    fmtflags m_flags;
-    // floating-point decimal precision
-    streamsize m_precision;
-    // field width
-    streamsize m_width;
-    // locale
-    locale m_locale;
-    // integer element of extensible array
-    long *m_iwords;
-    // event callbacks
-    event_callback *event_callbacks;
-    // synchronization with cstdio streams
-    static bool m_sync;
-
-public:
-    // Construct object
-    ios_base(const ios_base &) = delete;
-    ios_base &operator=(const ios_base &) = delete;
-    // Destruct object
-    virtual ~ios_base(){};
-
-    // Formatting
-    // Get/set format flags
-    fmtflags flags() const { return m_flags; }
-    fmtflags flags(fmtflags fmtfl) { return m_flags = fmtfl; };
-    // Set specific format flags
-    fmtflags setf(fmtflags fmtfl) { return m_flags = fmtfl; };
-    fmtflags setf(fmtflags fmtfl, fmtflags mask) { return m_flags = (fmtfl & mask); };
-    // Clear specific format flags
-    void unsetf(fmtflags mask) { m_flags &= mask; };
-    // Get/Set floating-point decimal precision
-    streamsize precision() const { return m_precision; };
-    streamsize precision(streamsize prec) { return m_precision = prec; };
-    // Get/set field width
-    streamsize width() const { return m_width; };
-    streamsize width(streamsize wide) { return m_width = wide; };
-
-    // Locales
-    // Imbue locale
-    locale imbue(const locale &loc) { return m_locale = loc; };
-    // Get current locale
-    locale getloc() const { return m_locale; };
-
-    // Internal extensible array
-    // Get new index for extensible array [static]
-    static int xalloc() { return 0; };
-    // Get integer element of extensible array
-    long &iword(int idx) { return m_iwords[idx]; };
-    // Get pointer element of extensible array
-    void *&pword(int idx) { return (void *&)m_iwords[idx]; };
-
-    // Others
-    // Register event callback function
-    void register_callback(event_callback fn, int index) { event_callbacks[index] = fn; };
-    // Toggle synchronization with cstdio streams [static]
-    static bool sync_with_stdio(bool sync = true) { return m_sync = sync; };
+    ios_base() {}
 };
+} // namespace std
 
-// Stream position class template
-template <class stateT>
-class fpos {
-private:
-    stateT m_state;
+#include <streambuf>
+
+namespace std
+{
+// Base class for streams (type-dependent components)
+template <class charT, class traits = char_traits<charT>>
+class basic_ios : public ios_base
+{
+protected:
+    // handle to basic stream buffer
+    std::basic_streambuf<charT, traits> *m_sb = nullptr;
+
 public:
-    stateT state() const { return m_state; }
-    void state(stateT state) { m_state = state; }
+    basic_ios(const basic_ios &) = delete;
+    explicit basic_ios(std::basic_streambuf<charT, traits> *sb)
+        : m_sb(sb) {}
+    // virtual ~basic_ios() {}
+
+protected:
+    basic_ios() {}
 };
 
 } // namespace std

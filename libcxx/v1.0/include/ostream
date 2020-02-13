@@ -1,0 +1,26 @@
+#ifndef OSTREAM
+#define OSTREAM
+
+#include <ios>
+
+// std namespace
+namespace std
+{
+
+// Output stream
+template <class charT, class traits = char_traits<charT>>
+class basic_ostream : virtual public basic_ios<charT, traits>
+{
+public:
+    explicit basic_ostream(std::basic_streambuf<charT, traits> *sb)
+        : basic_ios<charT, traits>(sb) {}
+    // virtual ~basic_ostream() {}
+
+protected:
+    basic_ostream(const basic_ostream &rhs) = delete;
+    basic_ostream(basic_ostream &&rhs) {}
+};
+
+} // namespace std
+
+#endif // OSTREAM

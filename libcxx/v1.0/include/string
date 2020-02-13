@@ -1,0 +1,26 @@
+#ifndef STRING
+#define STRING
+
+// std namespace
+namespace std
+{
+
+// Character traits
+template <class charT>
+struct char_traits
+{
+    // charT
+    typedef charT char_type;
+    // an integer type that can hold all values of char_type plus EOF
+    typedef long int_type;
+    // implementation-defined
+    typedef long off_type;
+    // implementation-defined
+    typedef long pos_type;
+    // implementation-defined
+    typedef long state_type;
+};
+
+} // namespace std
+
+#endif // STRING
