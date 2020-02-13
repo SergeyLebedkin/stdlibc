@@ -2,6 +2,7 @@
 #define OSTREAM
 
 #include <ios>
+#include <cstddef>
 
 // std namespace
 namespace std
@@ -12,13 +13,64 @@ template <class charT, class traits = char_traits<charT>>
 class basic_ostream : virtual public basic_ios<charT, traits>
 {
 public:
-    explicit basic_ostream(std::basic_streambuf<charT, traits> *sb)
-        : basic_ios<charT, traits>(sb) {}
-    // virtual ~basic_ostream() {}
+    // charT
+    typedef charT char_type;
+    // the program is ill-formed if Traits::char_type is not CharT.
+    typedef traits traits_type;
+    // traits::int_type
+    typedef typename traits::int_type int_type;
+    // traits::pos_type
+    typedef typename traits::pos_type pos_type;
+    // traits::off_type
+    typedef typename traits::off_type off_type;
+
+public:
+    // constructor
+    explicit basic_ostream(std::basic_streambuf<charT, traits> *sb) : basic_ios<charT, traits>(sb) {}
 
 protected:
+    // constructors
     basic_ostream(const basic_ostream &rhs) = delete;
     basic_ostream(basic_ostream &&rhs) {}
+
+protected:
+    // move-assigns from another basic_ostream
+    basic_ostream &operator=(basic_ostream &&rhs) { return *this; };
+
+    // swaps stream objects, except for the associated buffer
+    void swap(basic_ostream &rhs){};
+
+public:
+    // inserts formatted data
+    basic_ostream &operator<<(short value) { return *this; }
+    basic_ostream &operator<<(unsigned short value) { return *this; }
+    basic_ostream &operator<<(int value) { return *this; }
+    basic_ostream &operator<<(unsigned int value) { return *this; }
+    basic_ostream &operator<<(long value) { return *this; }
+    basic_ostream &operator<<(unsigned long value) { return *this; }
+    basic_ostream &operator<<(long long value) { return *this; }
+    basic_ostream &operator<<(unsigned long long value) { return *this; }
+    basic_ostream &operator<<(float value) { return *this; }
+    basic_ostream &operator<<(double value) { return *this; }
+    basic_ostream &operator<<(long double value) { return *this; }
+    basic_ostream &operator<<(bool value) { return *this; }
+    basic_ostream &operator<<(const void *value) { return *this; }
+    basic_ostream &operator<<(std::nullptr_t) { return *this; }
+    basic_ostream &operator<<(std::basic_streambuf<charT, traits> *sb) { return *this; }
+    basic_ostream &operator<<(std::ios_base &(*func)(std::ios_base &)) { return *this; }
+    basic_ostream &operator<<(std::basic_ios<charT, traits> &(*func)(std::basic_ios<charT, traits> &)) { return *this; }
+    basic_ostream &operator<<(std::basic_ostream<charT, traits> &(*func)(std::basic_ostream<charT, traits> &)) { return *this; }
+    // inserts a character
+    basic_ostream &put(char_type ch) { return *this; }
+    //  inserts blocks of characters
+    basic_ostream &write(const char_type *s, std::streamsize count) { return *this; }
+    // returns the output position indicator
+    pos_type tellp() { return 0; }
+    // sets the output position indicator
+    basic_ostream &seekp(pos_type pos) { return *this; }
+    basic_ostream &seekp(off_type off, std::ios_base::seekdir dir) { return *this; }
+    // synchronizes with the underlying storage device
+    basic_ostream &flush() { return *this; }
 };
 
 } // namespace std

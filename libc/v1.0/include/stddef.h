@@ -8,9 +8,9 @@ typedef unsigned long long size_t;
 // Type with widest scalar alignment (type)
 typedef double max_align_t;
 // Null pointer type (C++) (type)
-#define nullptr_t decltype(nullptr);
+typedef decltype(nullptr) nullptr_t;
 // Return member offset (macro)
-#define offsetof(s,m) ((::size_t)&reinterpret_cast<char const volatile&>((((s*)0)->m)))
+#define offsetof(s,m) ((size_t)&reinterpret_cast<char const volatile&>((((s*)0)->m)))
 // Null pointer (macro )
 #define NULL ((void *)0)
 

@@ -2,10 +2,14 @@
     "files.associations": {
         "cstddef": "cpp",
         "ios": "cpp",
-        "iosfwd": "cpp",
         "locale": "cpp",
-        "xiosbase": "cpp",
-        "xlocale": "cpp",
-        "streambuf": "cpp"
+        "ostream": "cpp",
+        "streambuf": "cpp",
+        "istream": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xlocnum": "cpp",
+        "xloctime": "cpp",
+        "string": "cpp"
     }
 }
